@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Button from "./Button";
 import InputBox from "./InputBox";
 
 class GratitudeForm extends Component {
@@ -11,7 +10,6 @@ class GratitudeForm extends Component {
             What are you grateful for?
             <InputBox />
           </label>
-          <Button text="Submit Gratitude Message" />
         </form>
       </div>
     );
