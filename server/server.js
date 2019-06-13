@@ -39,7 +39,7 @@ app.post("/api/gratitudes", (req, res, next) => {
 });
 
 // Serve the static files from the React app
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "./../build")));
 
 // Order matters. Put all API endpoints above app.get("*")
 // Handles any requests that don't match the ones above
