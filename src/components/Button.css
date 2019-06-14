@@ -1,0 +1,61 @@
+.basic-button {
+  /* Center text on button */
+  height: 50px;
+  line-height: 50px;
+
+  /* Center button horizontally */
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  /* Animating gradients */
+  background: linear-gradient(
+    75deg,
+    gold,
+    rgb(45, 149, 246),
+    rgb(250, 13, 123),
+    gold
+  );
+  background-size: 400% 100%;
+
+  -webkit-animation: ShiftingGradientAnimation 30s ease infinite;
+  -moz-animation: ShiftingGradientAnimation 30s ease infinite;
+  animation: ShiftingGradientAnimation 30s ease infinite;
+}
+
+.basic-button:hover {
+  cursor: pointer;
+}
+@-webkit-keyframes ShiftingGradientAnimation {
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
+}
+@-moz-keyframes ShiftingGradientAnimation {
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
+}
+@keyframes ShiftingGradientAnimation {
+  0% {
+    background-position: 93% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 93% 0%;
+  }
+}
