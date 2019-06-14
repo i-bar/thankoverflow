@@ -7,6 +7,9 @@ Dependencies:
 ### Setup
 
 ```sh
+# install OS-level dependencies (docker)
+./setup.sh
+
 # install dependencies
 npm install
 
