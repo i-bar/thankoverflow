@@ -2,6 +2,9 @@ body {
   /* variables */
   --main-bg-color: gold;
 
+  /* centre align */
+  margin: 0 auto;
+  
   /* other css props */
   /* margin: 0; */
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -16,7 +19,7 @@ body {
 .input-box {
   margin-top: 10px;
   padding: 5px;
-  width: 300px;
+  width: 80vw;
   border: 1px solid lightgrey;
   height: 200px;
   font-size: 18px;
