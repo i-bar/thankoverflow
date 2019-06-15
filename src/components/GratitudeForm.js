@@ -8,7 +8,7 @@ class GratitudeForm extends Component {
         <form>
           <label>
             What are you grateful for today?
-            <InputBox />
+            <InputBox getRandomGratitude={this.props.getRandomGratitude} />
           </label>
         </form>
       </div>
