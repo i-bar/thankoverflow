@@ -63,6 +63,7 @@ class InputBox extends Component {
 
   resetForm = () => {
     this.setState({ value: "", hidden: false });
+    this.props.getRandomGratitude();
   };
 
   randomDirection = () => {
