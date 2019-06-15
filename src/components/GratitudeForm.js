@@ -7,7 +7,7 @@ class GratitudeForm extends Component {
       <div>
         <form>
           <label>
-            What are you grateful for?
+            What are you grateful for today?
             <InputBox />
           </label>
         </form>

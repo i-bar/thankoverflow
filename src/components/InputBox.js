@@ -30,7 +30,7 @@ class InputBox extends Component {
           onChange={this.handleChange}
           className="input-box"
         />
-        <Button text="Submit Gratitude Message" submitForm={this.submitForm} />
+        <Button text="Send!" submitForm={this.submitForm} />
       </div>
     );
   }
