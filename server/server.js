@@ -4,10 +4,12 @@ const path = require("path");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const Gratitude = require("./Gratitude");
+var redirectToHTTPS = require("express-http-to-https").redirectToHTTPS;
 
 const app = express();
 
 app.use(morgan("tiny"));
+app.use(redirectToHTTPS([], [], 301));
 app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
