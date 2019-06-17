@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build_and_deploy_staging:
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo
@@ -16,4 +16,38 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow.git master
+      - run:
+          name: deploy to staging
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow-staging.git master
+  deploy_prod:
+    docker:
+      - image: circleci/node:7.10
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: deploy to prod
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow.git master
+
+workflows:
+  version: 2
+  ci_pipeline:
+    jobs:
+      - build_and_deploy_staging:
+      - trigger_deploy:
+          type: approval
+          requires:
+            - build_and_deploy_staging
+      - deploy_prod:
+          requires:
+            - trigger_deploy
