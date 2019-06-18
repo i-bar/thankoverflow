@@ -9,7 +9,7 @@ var redirectToHTTPS = require("express-http-to-https").redirectToHTTPS;
 const app = express();
 
 app.use(morgan("tiny"));
-app.use(redirectToHTTPS([], [], 301));
+app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301)); // Redirect all except localhost
 app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
