@@ -1,14 +1,13 @@
 version: 2
 
-references:
-  container_config: &container_config
-    docker:
-      - image: circleci/node:latest
-    working_directory: ~/repo
+defaults: &defaults
+  docker:
+    - image: circleci/node:latest
+  working_directory: ~/repo
 
 jobs:
   checkout_and_install_dependencies:
-    <<: *container_config
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
