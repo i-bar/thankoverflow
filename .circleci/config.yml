@@ -5,28 +5,25 @@ defaults: &defaults
     - image: circleci/node:latest
   working_directory: ~/repo
 
-aliases:
-  - &restore_cache
-    restore_cache:
-      keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies-
-  - &install_packages
-    run: npm install
-  - &save_cache
-    save_cache:
-      paths:
-        - node_modules
-      key: v1-dependencies-{{ checksum "package.json" }}
-
 jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
   deploy_staging:
     <<: *defaults
     steps:
       - checkout
-      - *restore_cache
-      - *install_packages
-      - *save_cache
       - run:
           name: deploy to staging
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow-staging.git master
@@ -35,9 +32,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - *restore_cache
-      - *install_packages
-      - *save_cache
       - run:
           name: deploy to prod
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow.git master
@@ -46,11 +40,13 @@ workflows:
   version: 2
   ci_pipeline:
     jobs:
-      - deploy_staging
-      - trigger_deploy:
+      - build
+      - deploy_staging:
+        requires: build
+      - hold:
           type: approval
           requires:
             - deploy_staging
       - deploy_prod:
           requires:
-            - trigger_deploy
+            - hold
