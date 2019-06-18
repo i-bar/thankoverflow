@@ -47,7 +47,10 @@ workflows:
   ci_pipeline:
     jobs:
       - deploy_staging
-      - deploy_prod:
+      - trigger_deploy:
           type: approval
           requires:
             - deploy_staging
+      - deploy_prod:
+          requires:
+            - hold
