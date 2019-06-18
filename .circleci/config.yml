@@ -42,7 +42,8 @@ workflows:
     jobs:
       - build
       - deploy_staging:
-        requires: build
+          requires:
+            - build
       - hold:
           type: approval
           requires:
