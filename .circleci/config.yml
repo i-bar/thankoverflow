@@ -53,4 +53,4 @@ workflows:
             - deploy_staging
       - deploy_prod:
           requires:
-            - hold
+            - trigger_deploy
