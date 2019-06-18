@@ -9,7 +9,6 @@ references:
 jobs:
   checkout_and_install_dependencies:
     <<: *container_config
-    executor: node_exec
     steps:
       - checkout
       - restore_cache:
