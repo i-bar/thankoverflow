@@ -32,7 +32,6 @@ app.post("/api/gratitudes", (req, res, next) => {
   gratitude
     .save()
     .then(() => {
-      console.log("saved");
       res.json({
         message: `saved: ${message}`,
       });

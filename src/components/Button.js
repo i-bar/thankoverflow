@@ -7,8 +7,7 @@ const Button = props => {
     <div
       className="basic-button"
       onClick={() => {
-        props.submitForm();
-        props.triggerAnimation();
+        props.onSend();
       }}
     >
       {props.text}

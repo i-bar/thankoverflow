@@ -1,25 +1,9 @@
 import React, { Component } from "react";
-import Button from "./Button";
 import ParticleEffectButton from "react-particle-effect-button";
 
 class InputBox extends Component {
   state = {
-    value: "",
-    hidden: false,
-  };
-
-  submitForm = async () => {
-    try {
-      await fetch("/api/gratitudes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: this.state.value }),
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    message: "",
   };
 
   render() {
@@ -27,46 +11,35 @@ class InputBox extends Component {
       <div>
         <ParticleEffectButton
           color="lightgrey"
-          hidden={this.state.hidden}
-          direction={this.randomDirection()}
-          particlesAmountCoefficient={3}
+          hidden={this.props.hidden}
+          direction={this.getRandomDirection()}
+          particlesAmountCoefficient={5}
           duration={500}
           easing="easeInSine"
-          onComplete={this.resetForm}
+          onComplete={this.onAnimationComplete}
         >
           <textarea
-            value={this.state.value}
-            onChange={this.handleChange}
+            value={this.state.message}
+            onChange={this.onTextChange}
             className="input-box"
           />
         </ParticleEffectButton>
-        <Button
-          text="Send!"
-          submitForm={this.submitForm}
-          triggerAnimation={this.triggerAnimation}
-        />
       </div>
     );
   }
 
-  handleChange = event => {
+  onTextChange = event => {
     this.setState({
-      value: event.target.value,
+      message: event.target.value,
     });
   };
 
-  triggerAnimation = () => {
-    this.setState({
-      hidden: !this.state.hidden,
-    });
+  onAnimationComplete = () => {
+    this.setState({ message: "" });
+    this.props.onComplete();
   };
 
-  resetForm = () => {
-    this.setState({ value: "", hidden: false });
-    this.props.getRandomGratitude();
-  };
-
-  randomDirection = () => {
+  getRandomDirection = () => {
     const randomFloat = Math.random();
     if (randomFloat <= 0.25) {
       return "left";

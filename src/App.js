@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div>
         <h1>Thank Overflow</h1>
-        <GratitudeForm getRandomGratitude={this.getRandomGratitude} />
+        <GratitudeForm inputSubmitted={this.getRandomGratitude} />
         <Gratitude message={this.state.randomGratitude} />
       </div>
     );
@@ -26,7 +26,7 @@ class App extends Component {
         this.setState({
           randomGratitude: gratitudes
             .map(g => g.message)
-            .reduce((acc, message) => acc + "; " + message, ""),
+            .reduce((acc, message) => message + "; " + acc, ""),
         })
       );
   };
