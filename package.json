@@ -17,6 +17,7 @@
   },
   "scripts": {
     "heroku-postbuild": "npm run build",
+    "build": "react-scripts build",
     "start": "node server/server.js",
     "start:client": "react-scripts start",
     "start:server": "$(npm bin)/nodemon server/server.js",
