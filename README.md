@@ -19,11 +19,8 @@ docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
 # when starting container subsequently
 docker start mongodb
 
-# start express server
-npm run start:dev
-
-# start react app
-npm run start:react
+# start express server and react client
+npm run dev
 ```
 
 ### Resources / Links
@@ -47,4 +44,7 @@ SSL Certificates:
 
 - NameCheap [does not support LetsEncrypt](https://webmasters.stackexchange.com/questions/104696/how-to-use-lets-encrypt-free-ssl-on-namecheap-shared-hosting?newreg=c396ddbebaac450d84360e01ba84382e) :(...
 - Tried [to generate and add letsencrypt SSL cert to namecheap](https://medium.com/@cubxi/add-wildcard-lets-encrypt-certifications-with-namecheap-6a466df0886f)... but it didn't work...
-- Buy SSL certificate from NameCheap :|. [Cheapest two compared](https://www.namecheap.com/security/ssl-certificates/compare/#cert-1=8&cert-2=1).
+- Buy SSL certificate from NameCheap :|. [Cheapest two compared](https://www.namecheap.com/security/ssl-certificates/compare/#cert-1=8&cert-2=1). Steps to activate it:
+  1. [Generate CSR](https://www.namecheap.com/support/knowledgebase/article.aspx/9446/14/generating-csr-on-apache--opensslmodsslnginx--heroku)
+  2. [Buy and activate NameCheap certificate](https://www.namecheap.com/support/knowledgebase/article.aspx/804/67/ssl-certificate-activation-and-installation-for-domains-hosted-on-namecheap-hosting-servers) - steps 2. onwards.  
+     Note: Used "DNS" (with CNAME) as the "DCV" method.
