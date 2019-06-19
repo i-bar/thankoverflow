@@ -6,7 +6,7 @@ defaults: &defaults
   working_directory: ~/repo
 
 jobs:
-  build:
+  test:
     <<: *defaults
     steps:
       - checkout
@@ -15,6 +15,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - run: npm install
+      - run: npm test
       - save_cache:
           paths:
             - node_modules
@@ -46,10 +47,10 @@ workflows:
   version: 2
   ci_pipeline:
     jobs:
-      - build
+      - test
       - deploy_staging:
           requires:
-            - build
+            - test
       - hold:
           type: approval
           requires:
