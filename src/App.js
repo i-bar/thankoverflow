@@ -6,7 +6,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    randomGratitude: ""
+    randomGratitude: "",
   };
 
   render() {
@@ -20,9 +20,15 @@ class App extends Component {
   }
 
   getRandomGratitude = () => {
-    this.setState({
-      randomGratitude: `Random gratitude #${Math.floor(Math.random() * 100)}`
-    });
+    fetch("/api/gratitude")
+      .then(response => response.json())
+      .then(gratitudes =>
+        this.setState({
+          randomGratitude: gratitudes
+            .map(g => g.message)
+            .reduce((acc, message) => acc + "; " + message, ""),
+        })
+      );
   };
 }
 

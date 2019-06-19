@@ -40,6 +40,14 @@ app.post("/api/gratitudes", (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get("/api/gratitude", (req, res, next) => {
+  Gratitude.aggregate([{ $sample: { size: 3 } }])
+    .then(function(gratitude) {
+      res.json(gratitude);
+    })
+    .catch(err => next(err));
+});
+
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "./../build")));
 
