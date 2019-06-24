@@ -25,22 +25,24 @@ npm run dev
 
 ### Resources / Links
 
-Animation:
+#### Animation:
 
 - [react-particle-effect-button](https://github.com/transitive-bullshit/react-particle-effect-button)
 - [easing functions](https://easings.net/en)
 
-Adding custom domain name:
+#### Adding custom domain name:
 
 - [tutorial](https://towardsdatascience.com/how-to-deploy-your-website-to-a-custom-domain-8cb23063c1ff)
 
-CircleCI:
+#### CircleCI:
 
 - [local CLI](https://circleci.com/docs/2.0/local-cli/) to test a configuration locally.
 - [example of configuration with aliases](https://github.com/facebook/Docusaurus/blob/master/.circleci/config.yml)
 - [nice q&a about circleci DRY](https://discuss.circleci.com/t/allow-bundling-several-steps-e-g-by-supporting-nested-steps/15339)
 
-SSL Certificates:
+#### SSL Certificates:
+
+First (failed) attempt: buy certificate from NameCheap
 
 - NameCheap [does not support LetsEncrypt](https://webmasters.stackexchange.com/questions/104696/how-to-use-lets-encrypt-free-ssl-on-namecheap-shared-hosting?newreg=c396ddbebaac450d84360e01ba84382e) :(...
 - Tried [to generate and add letsencrypt SSL cert to namecheap](https://medium.com/@cubxi/add-wildcard-lets-encrypt-certifications-with-namecheap-6a466df0886f)... but it didn't work...
@@ -48,3 +50,10 @@ SSL Certificates:
   1. [Generate CSR](https://www.namecheap.com/support/knowledgebase/article.aspx/9446/14/generating-csr-on-apache--opensslmodsslnginx--heroku)
   2. [Buy and activate NameCheap certificate](https://www.namecheap.com/support/knowledgebase/article.aspx/804/67/ssl-certificate-activation-and-installation-for-domains-hosted-on-namecheap-hosting-servers) - steps 2. onwards.  
      Note: Used "DNS" (with CNAME) as the "DCV" method.
+  3. Follow [these steps](https://www.namecheap.com/support/knowledgebase/article.aspx/10050/33/installing-a-ssl-certificate-on-heroku-ssl) to add SSL to heroku... and while on the way... throw PC out the window, because
+     Heroku: "SSL - Upgrade to paid dynos to configure Heroku SSL "
+     Nooo :((( ...
+
+Second (successful so far `¯\_(ツ)_/¯`) attempt: use CloudFlare as a reverse proxy:
+
+- Follow [these steps](https://medium.com/@oliviazyc/publishing-a-free-ghost-blog-with-heroku-namecheap-and-cloudflare-29ae5593258b) to do so...
