@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
+import { isInvalid } from "../service/messageValidation";
 
 class GratitudeForm extends Component {
   state = {
@@ -18,11 +19,21 @@ class GratitudeForm extends Component {
             message={this.state.message}
             updateMessage={this.updateMessage}
           />
-          <Button text="Send!" onSend={this.submitForm} />
+          <Button text="Send!" onSend={this.trySubmitForm} />
         </form>
       </div>
     );
   }
+
+  trySubmitForm = () => {
+    if (isInvalid(this.state.message)) {
+      alert(
+        "it seems like you've written something that's too funky. try again :)"
+      );
+    } else {
+      this.submitForm();
+    }
+  };
 
   submitForm = async () => {
     this.hideTextBox();
