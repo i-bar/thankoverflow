@@ -13,7 +13,6 @@ class InputBox extends Component {
           particlesAmountCoefficient={5}
           duration={500}
           easing="easeInSine"
-          onComplete={this.onAnimationComplete}
         >
           <textarea
             value={this.props.message}
@@ -24,10 +23,6 @@ class InputBox extends Component {
       </div>
     );
   }
-
-  onAnimationComplete = () => {
-    this.props.onComplete();
-  };
 }
 
 export default InputBox;

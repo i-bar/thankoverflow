@@ -4,11 +4,13 @@ import Button from "./Button";
 
 class GratitudeForm extends Component {
   state = {
-    isMessageHidden: false, // Hidden while the animation is... animating :)
+    isInputBoxHidden: false, // Hidden while the animation is... animating :)
     message: ""
   };
 
   submitForm = async () => {
+    this.hideTextBox();
+
     try {
       await fetch("/api/gratitudes", {
         method: "POST",
@@ -17,23 +19,28 @@ class GratitudeForm extends Component {
         },
         body: JSON.stringify({ message: this.state.message })
       });
+
+      this.clearMessage();
+      this.showTextBox();
+      this.props.fetchRandomGratitude();
     } catch (err) {
       console.error(err);
     }
-    this.clearMessage();
-    this.props.fetchRandomGratitude();
   };
 
-  triggerSubmissionSequence = () => {
+  hideTextBox = () => {
     this.setState({
-      isMessageHidden: !this.state.isMessageHidden
+      isInputBoxHidden: true
     });
   };
 
-  onAnimationFinished = () => {
-    this.state.isMessageHidden
-      ? this.triggerSubmissionSequence()
-      : this.submitForm();
+  showTextBox = () => {
+    const REQUIRED_ANIMATION_LAG = 1500;
+    setTimeout(() => {
+      this.setState({
+        isInputBoxHidden: false
+      });
+    }, REQUIRED_ANIMATION_LAG);
   };
 
   updateMessage = event => {
@@ -52,13 +59,11 @@ class GratitudeForm extends Component {
         <form>
           <label>What are you grateful for today?</label>
           <InputBox
-            onComplete={this.onAnimationFinished}
-            hidden={this.state.isMessageHidden}
+            hidden={this.state.isInputBoxHidden}
             message={this.state.message}
             updateMessage={this.updateMessage}
-            clearMessage={this.clearMessage}
           />
-          <Button text="Send!" onSend={this.triggerSubmissionSequence} />
+          <Button text="Send!" onSend={this.submitForm} />
         </form>
       </div>
     );
