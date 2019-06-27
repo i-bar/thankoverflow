@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: deploy to staging
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow-staging.git master
+          command: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow-staging.git master
       - run:
           name: smoke test for staging
           command: curl --fail https://thankoverflow-staging.herokuapp.com/
@@ -38,7 +38,7 @@ jobs:
       - checkout
       - run:
           name: deploy to prod
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow.git master
+          command: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/thankoverflow.git master
       - run:
           name: smoke test for prod
           command: curl --fail https://thankoverflow.herokuapp.com/
