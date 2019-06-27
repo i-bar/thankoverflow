@@ -19,6 +19,9 @@ docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
 # when starting container subsequently
 docker start mongodb
 
+# create a .env.local in the project root directory and include the following:
+ALGORITHMIA_API_KEY=get api key from heroku environment variables
+
 # start express server and react client
 npm run dev
 ```

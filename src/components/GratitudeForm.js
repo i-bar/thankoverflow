@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
-import { isInvalid } from "../service/messageValidation";
+import { isInvalid, hasNegativeSentiment } from "../service/messageValidation";
+import {
+  NEGATIVE_SENTIMENT_MSG,
+  INVALID_GRATITUDE_MSG
+} from "../service/constants";
 
 class GratitudeForm extends Component {
   state = {
@@ -25,11 +29,12 @@ class GratitudeForm extends Component {
     );
   }
 
-  trySubmitForm = () => {
+  trySubmitForm = async () => {
+    const anyNegativeSentiment = await hasNegativeSentiment(this.state.message);
     if (isInvalid(this.state.message)) {
-      alert(
-        "it seems like you've written something that's too funky. try again :)"
-      );
+      alert(INVALID_GRATITUDE_MSG);
+    } else if (anyNegativeSentiment) {
+      alert(NEGATIVE_SENTIMENT_MSG);
     } else {
       this.submitForm();
     }

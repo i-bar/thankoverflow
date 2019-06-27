@@ -1,9 +1,12 @@
-require("dotenv").config();
-const express = require("express");
 const path = require("path");
+const dotenv = require("dotenv");
+const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const Gratitude = require("./Gratitude");
+const Algorithmia = require("algorithmia");
+
+dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 
 const app = express();
 
@@ -43,6 +46,22 @@ app.get("/api/gratitude", (req, res, next) => {
       res.json(gratitude);
     })
     .catch(err => next(err));
+});
+
+app.post("/api/predict-sentiment", (req, res, next) => {
+  const message = req.body.message;
+  try {
+    Algorithmia.client(process.env.ALGORITHMIA_API_KEY)
+      .algo("nlp/SentimentAnalysis/1.0.5")
+      .pipe({
+        document: message
+      })
+      .then(function(response) {
+        res.json(response.get());
+      });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Serve the static files from the React app
