@@ -8,6 +8,22 @@ class GratitudeForm extends Component {
     message: ""
   };
 
+  render() {
+    return (
+      <div>
+        <form>
+          <label>What are you grateful for today?</label>
+          <InputBox
+            hidden={this.state.isInputBoxHidden}
+            message={this.state.message}
+            updateMessage={this.updateMessage}
+          />
+          <Button text="Send!" onSend={this.submitForm} />
+        </form>
+      </div>
+    );
+  }
+
   submitForm = async () => {
     this.hideTextBox();
 
@@ -19,12 +35,12 @@ class GratitudeForm extends Component {
         },
         body: JSON.stringify({ message: this.state.message })
       });
-
+    } catch (err) {
+      console.error(err);
+    } finally {
       this.clearMessage();
       this.showTextBox();
       this.props.fetchRandomGratitude();
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -52,22 +68,6 @@ class GratitudeForm extends Component {
   clearMessage = () => {
     this.setState({ message: "" });
   };
-
-  render() {
-    return (
-      <div>
-        <form>
-          <label>What are you grateful for today?</label>
-          <InputBox
-            hidden={this.state.isInputBoxHidden}
-            message={this.state.message}
-            updateMessage={this.updateMessage}
-          />
-          <Button text="Send!" onSend={this.submitForm} />
-        </form>
-      </div>
-    );
-  }
 }
 
 export default GratitudeForm;
