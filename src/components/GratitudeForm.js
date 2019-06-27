@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
+import logo from "../loading-icon.svg";
 import { isInvalid, hasNegativeSentiment } from "../service/messageValidation";
 import {
   NEGATIVE_SENTIMENT_MSG,
@@ -10,7 +11,8 @@ import {
 class GratitudeForm extends Component {
   state = {
     isInputBoxHidden: false, // Hidden while the animation is... animating :)
-    message: ""
+    message: "",
+    isLoading: false
   };
 
   render() {
@@ -22,7 +24,10 @@ class GratitudeForm extends Component {
             hidden={this.state.isInputBoxHidden}
             message={this.state.message}
             updateMessage={this.updateMessage}
+            isLoading={this.state.isLoading}
           />
+          {this.state.isLoading && <img src={logo} alt="spinning loader" id="loading-icon" />}
+
           <Button text="Send!" onSend={this.trySubmitForm} />
         </form>
       </div>
@@ -30,14 +35,26 @@ class GratitudeForm extends Component {
   }
 
   trySubmitForm = async () => {
-    const anyNegativeSentiment = await hasNegativeSentiment(this.state.message);
+    await this.toggleIsLoading();
     if (isInvalid(this.state.message)) {
       alert(INVALID_GRATITUDE_MSG);
-    } else if (anyNegativeSentiment) {
+      this.toggleIsLoading();
+      return;
+    } else if (await hasNegativeSentiment(this.state.message)) {
+      // comment out this entire else-if-block to remove the latency that comes with sentiment analysis
       alert(NEGATIVE_SENTIMENT_MSG);
+      this.toggleIsLoading();
+      return;
     } else {
       this.submitForm();
+      this.toggleIsLoading();
     }
+  };
+
+  toggleIsLoading = () => {
+    this.setState({
+      isLoading: !this.state.isLoading
+    });
   };
 
   submitForm = async () => {

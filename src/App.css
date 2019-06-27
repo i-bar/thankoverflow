@@ -28,3 +28,15 @@ body {
 .gratitude {
   margin-top: 50px
 }
+
+#loading-icon {
+  position: absolute;
+  left: 30vw;
+  top: 18vh;
+  margin: 0 auto;
+  width: 40%
+}
+
+#lighten-text {
+  color: lightgrey
+}
