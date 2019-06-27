@@ -3,10 +3,6 @@ import ParticleEffectButton from "react-particle-effect-button";
 import { getRandomDirection } from "../service/animationProps";
 
 class InputBox extends Component {
-  state = {
-    message: "",
-  };
-
   render() {
     return (
       <div>
@@ -20,8 +16,8 @@ class InputBox extends Component {
           onComplete={this.onAnimationComplete}
         >
           <textarea
-            value={this.state.message}
-            onChange={this.onTextChange}
+            value={this.props.message}
+            onChange={this.props.updateMessage}
             className="input-box"
           />
         </ParticleEffectButton>
@@ -29,14 +25,8 @@ class InputBox extends Component {
     );
   }
 
-  onTextChange = event => {
-    this.setState({
-      message: event.target.value,
-    });
-  };
-
   onAnimationComplete = () => {
-    this.setState({ message: "" });
+    this.props.clearMessage();
     this.props.onComplete();
   };
 }
