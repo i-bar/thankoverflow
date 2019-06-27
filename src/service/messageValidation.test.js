@@ -20,7 +20,7 @@ describe("Message Validation", () => {
     expect(isInvalid("..!@)#*&.")).toEqual(true);
   });
 
-  it.only('isInvalid("<white spaces only>") should return true', () => {
+  it('isInvalid("<white spaces only>") should return true', () => {
     expect(isInvalid("    ")).toEqual(true);
     expect(isInvalid("\t")).toEqual(true);
     expect(isInvalid("\n")).toEqual(true);
