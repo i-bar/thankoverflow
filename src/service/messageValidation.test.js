@@ -5,4 +5,8 @@ describe("Message Validation", () => {
     expect(isInvalid("djklas")).toEqual(true);
     expect(isInvalid("SLDJHFLB")).toEqual(true);
   });
+
+  it('isInvalid("") should return true', () => {
+    expect(isInvalid("")).toEqual(true);
+  });
 });
