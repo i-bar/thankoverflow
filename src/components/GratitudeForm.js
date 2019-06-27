@@ -20,8 +20,8 @@ class GratitudeForm extends Component {
     } catch (err) {
       console.error(err);
     }
-
-    this.props.inputSubmitted();
+    this.clearMessage();
+    this.props.fetchRandomGratitude();
   };
 
   triggerSubmissionSequence = () => {

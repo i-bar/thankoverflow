@@ -26,7 +26,6 @@ class InputBox extends Component {
   }
 
   onAnimationComplete = () => {
-    this.props.clearMessage();
     this.props.onComplete();
   };
 }
