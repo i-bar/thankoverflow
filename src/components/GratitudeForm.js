@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
-import logo from "../loading-icon.svg";
 import { isInvalid } from "../service/messageValidation";
 import { isToxic } from "../service/toxicityService";
 import {
   NEGATIVE_SENTIMENT_MSG,
-  INVALID_GRATITUDE_MSG
+  INVALID_GRATITUDE_MSG,
+  LOADING_MSG
 } from "../service/constants";
 
 class GratitudeForm extends Component {
@@ -27,9 +27,7 @@ class GratitudeForm extends Component {
             updateMessage={this.updateMessage}
             isLoading={this.state.isLoading}
           />
-          {this.state.isLoading && (
-            <img src={logo} alt="spinning loader" id="loading-icon" />
-          )}
+          {this.state.isLoading && <p id="loading-icon">{LOADING_MSG}</p>}
 
           <Button text="Send!" onSend={this.trySubmitForm} />
         </form>
@@ -81,13 +79,16 @@ class GratitudeForm extends Component {
   };
 
   hideTextBox = () => {
-    this.setState({
-      isInputBoxHidden: true
-    });
+    const REQUIRED_ANIMATION_LAG = 1;
+    setTimeout(() => {
+      this.setState({
+        isInputBoxHidden: true
+      });
+    }, REQUIRED_ANIMATION_LAG);
   };
 
   showTextBox = () => {
-    const REQUIRED_ANIMATION_LAG = 1500;
+    const REQUIRED_ANIMATION_LAG = 2000;
     setTimeout(() => {
       this.setState({
         isInputBoxHidden: false

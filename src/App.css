@@ -31,10 +31,11 @@ body {
 
 #loading-icon {
   position: absolute;
-  left: 30vw;
-  top: 18vh;
+  left: 10%;
+  top: 30%;
   margin: 0 auto;
-  width: 40%
+  width: 80%;
+  background: lightgrey
 }
 
 #lighten-text {
