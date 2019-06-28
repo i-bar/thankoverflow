@@ -6,7 +6,7 @@ export const isToxic = async sentence => {
 };
 
 export const _predictToxicity = sentence => {
-  const threshold = 0.9;
+  const THRESHOLD = 0.5;
 
   // Which toxicity labels to return.
   const labelsToInclude = [
@@ -19,8 +19,14 @@ export const _predictToxicity = sentence => {
     "obscene"
   ];
 
-  return toxicity.load(threshold, labelsToInclude).then(model => {
+  return toxicity.load(THRESHOLD, labelsToInclude).then(model => {
     return model.classify([sentence]).then(predictions => {
+      console.log("=== probability of negative sentiment: === ");
+      predictions.forEach(prediction => {
+        console.log(
+          `${prediction.label}: ${prediction.results[0].probabilities[1]}`
+        );
+      });
       return predictions;
     });
   });
