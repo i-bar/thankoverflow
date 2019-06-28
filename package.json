@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@tensorflow-models/toxicity": "^1.1.0",
+    "@tensorflow/tfjs": "^1.0.4",
     "algorithmia": "^0.3.10",
     "asdfjkl": "0.0.3",
     "body-parser": "^1.19.0",

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
 import logo from "../loading-icon.svg";
-import { isInvalid, hasNegativeSentiment } from "../service/messageValidation";
+import { isInvalid } from "../service/messageValidation";
+import { isToxic } from "../service/toxicityService";
 import {
   NEGATIVE_SENTIMENT_MSG,
   INVALID_GRATITUDE_MSG
@@ -26,7 +27,9 @@ class GratitudeForm extends Component {
             updateMessage={this.updateMessage}
             isLoading={this.state.isLoading}
           />
-          {this.state.isLoading && <img src={logo} alt="spinning loader" id="loading-icon" />}
+          {this.state.isLoading && (
+            <img src={logo} alt="spinning loader" id="loading-icon" />
+          )}
 
           <Button text="Send!" onSend={this.trySubmitForm} />
         </form>
@@ -36,12 +39,12 @@ class GratitudeForm extends Component {
 
   trySubmitForm = async () => {
     await this.toggleIsLoading();
+    const messageIsToxic = await isToxic(this.state.message);
     if (isInvalid(this.state.message)) {
       alert(INVALID_GRATITUDE_MSG);
       this.toggleIsLoading();
       return;
-    } else if (await hasNegativeSentiment(this.state.message)) {
-      // comment out this entire else-if-block to remove the latency that comes with sentiment analysis
+    } else if (messageIsToxic) {
       alert(NEGATIVE_SENTIMENT_MSG);
       this.toggleIsLoading();
       return;
