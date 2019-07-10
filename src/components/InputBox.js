@@ -18,7 +18,7 @@ class InputBox extends Component {
             value={this.props.message}
             onChange={this.props.updateMessage}
             className="input-box"
-            id={this.props.isLoading ? "lighten-text" : ""}
+            id={this.props.isLoading ? 'lighten-text': ''}
           />
         </ParticleEffectButton>
       </div>

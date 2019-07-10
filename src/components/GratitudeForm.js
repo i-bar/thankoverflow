@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import InputBox from "./InputBox";
 import Button from "./Button";
-import { isInvalid } from "../service/messageValidation";
-import { isToxic } from "../service/toxicityService";
+import logo from "../loading-icon.svg";
+import { isInvalid, hasNegativeSentiment } from "../service/messageValidation";
 import {
   NEGATIVE_SENTIMENT_MSG,
-  INVALID_GRATITUDE_MSG,
-  LOADING_MSG
+  INVALID_GRATITUDE_MSG
 } from "../service/constants";
 
 class GratitudeForm extends Component {
@@ -27,7 +26,7 @@ class GratitudeForm extends Component {
             updateMessage={this.updateMessage}
             isLoading={this.state.isLoading}
           />
-          {this.state.isLoading && <p id="loading-icon">{LOADING_MSG}</p>}
+          {this.state.isLoading && <img src={logo} alt="spinning loader" id="loading-icon" />}
 
           <Button text="Send!" onSend={this.trySubmitForm} />
         </form>
@@ -37,12 +36,12 @@ class GratitudeForm extends Component {
 
   trySubmitForm = async () => {
     await this.toggleIsLoading();
-    const messageIsToxic = await isToxic(this.state.message);
     if (isInvalid(this.state.message)) {
       alert(INVALID_GRATITUDE_MSG);
       this.toggleIsLoading();
       return;
-    } else if (messageIsToxic) {
+    } else if (await hasNegativeSentiment(this.state.message)) {
+      // comment out this entire else-if-block to remove the latency that comes with sentiment analysis
       alert(NEGATIVE_SENTIMENT_MSG);
       this.toggleIsLoading();
       return;
@@ -79,16 +78,13 @@ class GratitudeForm extends Component {
   };
 
   hideTextBox = () => {
-    const REQUIRED_ANIMATION_LAG = 1;
-    setTimeout(() => {
-      this.setState({
-        isInputBoxHidden: true
-      });
-    }, REQUIRED_ANIMATION_LAG);
+    this.setState({
+      isInputBoxHidden: true
+    });
   };
 
   showTextBox = () => {
-    const REQUIRED_ANIMATION_LAG = 2000;
+    const REQUIRED_ANIMATION_LAG = 1500;
     setTimeout(() => {
       this.setState({
         isInputBoxHidden: false
