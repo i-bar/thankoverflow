@@ -1,0 +1,21 @@
+.gratitude-wrapper {
+  margin-top: 30px;
+}
+
+.gratitude {
+  height: 50px;
+  line-height: 50px;
+
+  /* margin-top: 10px; -- does not get along with the margin below... */
+  padding: 5px;
+  width: 80vw;
+  border: 1px solid lightgrey;
+  height: 150px;
+  font-size: 18px;
+  color: rgb(157, 157, 157);
+
+  text-align: left;
+
+  /* Center textbox horizontally */
+  margin: 0 auto;
+}
