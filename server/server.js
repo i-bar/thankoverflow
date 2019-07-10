@@ -40,10 +40,10 @@ app.post("/api/gratitudes", (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get("/api/gratitude", (req, res, next) => {
-  Gratitude.aggregate([{ $sample: { size: 3 } }])
-    .then(function(gratitude) {
-      res.json(gratitude);
+app.get("/api/gratitude", (_, res, next) => {
+  Gratitude.aggregate([{ $sample: { size: 1 } }])
+    .then(function(gratitudes) {
+      res.json(gratitudes[0]);
     })
     .catch(err => next(err));
 });

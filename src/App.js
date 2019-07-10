@@ -22,13 +22,13 @@ class App extends Component {
   fetchRandomGratitude = () => {
     fetch("/api/gratitude")
       .then(response => response.json())
-      .then(gratitudes =>
+      .then(gratitude => {
+        console.log("=== 1 ", gratitude);
+        console.log("=== 2 ", gratitude.message);
         this.setState({
-          randomGratitude: gratitudes
-            .map(g => g.message)
-            .reduce((acc, message) => message + "; " + acc, "")
-        })
-      );
+          randomGratitude: gratitude.message
+        });
+      });
   };
 }
 
