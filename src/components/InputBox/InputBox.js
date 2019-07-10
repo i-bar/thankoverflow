@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ParticleEffectButton from "react-particle-effect-button";
-import { getRandomDirection } from "../service/animationProps";
+import { getRandomDirection } from "../../service/animationProps";
+import "./InputBox.css";
 
 class InputBox extends Component {
   render() {
@@ -18,7 +19,7 @@ class InputBox extends Component {
             value={this.props.message}
             onChange={this.props.updateMessage}
             className="input-box"
-            id={this.props.isLoading ? 'lighten-text': ''}
+            id={this.props.isLoading ? "lighten-text" : ""}
           />
         </ParticleEffectButton>
       </div>

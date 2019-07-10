@@ -4,7 +4,7 @@ body {
 
   /* centre align */
   margin: 0 auto;
-  
+
   /* other css props */
   /* margin: 0; */
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -14,29 +14,4 @@ body {
   text-align: center;
   padding: 5px;
   width: 90%;
-}
-
-.input-box {
-  margin-top: 10px;
-  padding: 5px;
-  width: 80vw;
-  border: 1px solid lightgrey;
-  height: 150px;
-  font-size: 18px;
-}
-
-.gratitude {
-  margin-top: 50px
-}
-
-#loading-icon {
-  position: absolute;
-  left: 30vw;
-  top: 18vh;
-  margin: 0 auto;
-  width: 40%
-}
-
-#lighten-text {
-  color: lightgrey
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import GratitudeForm from "./components/GratitudeForm";
-import Gratitude from "./components/Gratitude";
+import GratitudeForm from "./components/GratitudeForm/GratitudeForm";
+import Gratitude from "./components/Gratitude/Gratitude";
 
 import "./App.css";
 
