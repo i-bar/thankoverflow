@@ -42,19 +42,19 @@ class GratitudeForm extends Component {
 
   trySubmitForm = async () => {
     await this.toggleIsLoading();
-    // if (isInvalid(this.state.message)) {
-    //   alert(INVALID_GRATITUDE_MSG);
-    //   this.toggleIsLoading();
-    //   return;
-    // } else if (await hasNegativeSentiment(this.state.message)) {
-    //   // comment out this entire else-if-block to remove the latency that comes with sentiment analysis
-    //   alert(NEGATIVE_SENTIMENT_MSG);
-    //   this.toggleIsLoading();
-    //   return;
-    // } else {
-    this.submitForm();
-    this.toggleIsLoading();
-    // }
+    if (isInvalid(this.state.message)) {
+      alert(INVALID_GRATITUDE_MSG);
+      this.toggleIsLoading();
+      return;
+    } else if (await hasNegativeSentiment(this.state.message)) {
+      // comment out this entire else-if-block to remove the latency that comes with sentiment analysis
+      alert(NEGATIVE_SENTIMENT_MSG);
+      this.toggleIsLoading();
+      return;
+    } else {
+      this.submitForm();
+      this.toggleIsLoading();
+    }
   };
 
   toggleIsLoading = () => {
