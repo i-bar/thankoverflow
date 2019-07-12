@@ -23,8 +23,6 @@ class App extends Component {
     fetch("/api/gratitude")
       .then(response => response.json())
       .then(gratitude => {
-        console.log("=== 1 ", gratitude);
-        console.log("=== 2 ", gratitude.message);
         this.setState({
           randomGratitude: gratitude.message
         });
